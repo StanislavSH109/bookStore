@@ -1,19 +1,42 @@
 <template>
+  <h2 class="title">This is HomeView</h2>
+  <div class="home">
+    <div v-for="(books, category) in booksCategories" :key="category">
+      <h2>{{ category }}</h2>
+      <BookCard v-for="book in books" :key="book.id" :book="book"/>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import {ref, onMounted } from 'vue';
 import { getBooks } from '@/api/getBooks';
 import type { IBook } from '@/types/books';
+import BookCard from '@/components/BookCard.vue';
 
-const books = ref<IBook[]>([]);
+
+const categories = ['fantasy', 'self-help', 'programming', 'science%20fiction'];
+const booksCategories = ref<Record<string, IBook[]>>({});
+const isLoading = ref(true);
+
 
 onMounted(async () => {
-  const data = await getBooks('fantasy');
-  // books.value = data;
+  console.log('инициализация', booksCategories.value);
+  for (const category of categories) {
+    booksCategories.value[category] = await getBooks(category);
+    console.log(booksCategories.value);
+  }
+
+  isLoading.value = false;
 })
+
 </script>
 
 <style scoped>
-
+.title {
+  text-align: center;
+}
+.home {
+  display: flex;
+}
 </style>

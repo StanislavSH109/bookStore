@@ -20,8 +20,5 @@ const props = defineProps<{book: IBook}>();
   border: 1px solid black;
   padding: 8px;
 
-  img {
-
-  }
 }
 </style>

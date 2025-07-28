@@ -9,7 +9,6 @@ export const getBooks = async(subject: string): Promise<IBook[]> => {
 
     const data = await response.json();
     if (!data.items) return [];
-    console.log(data);
 
     const books: IBook[] = data.items.map((item: any) => {
       const info = item.volumeInfo || {};

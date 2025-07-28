@@ -1,7 +1,11 @@
 <template>
   <div class="container">
-    <RouterLink :to="{name: 'home'}"></RouterLink>
-    <RouterView/>
+    <nav class="nav">
+      <RouterLink :to="{name: 'home'}"></RouterLink>
+    </nav>
+    <main>
+      <RouterView/>
+    </main>
   </div>
 </template>
 

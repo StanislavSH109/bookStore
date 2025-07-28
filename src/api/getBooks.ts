@@ -9,6 +9,7 @@ export const getBooks = async(subject: string): Promise<IBook[]> => {
 
     const data = await response.json();
     if (!data.items) return [];
+    console.log(data);
 
     const books: IBook[] = data.items.map((item: any) => {
       const info = item.volumeInfo || {};
@@ -16,7 +17,10 @@ export const getBooks = async(subject: string): Promise<IBook[]> => {
         id: item.id,
         title: info.title,
         categories: info.categories || [],
-        imageLinks: info.imageLinks?.thumbnail || '',
+        imageLinks: {
+          smallThumbnail: info.imageLinks?.smallThumbnail || '',
+          thumbnail: info.imageLinks?.thumbnail || ''
+        }
       };
     });
 

@@ -21,12 +21,9 @@ const isLoading = ref(true);
 
 
 onMounted(async () => {
-  console.log('инициализация', booksCategories.value);
   for (const category of categories) {
     booksCategories.value[category] = await getBooks(category);
-    console.log(booksCategories.value);
   }
-
   isLoading.value = false;
 })
 

@@ -6,8 +6,9 @@ export interface IImageLinks {
 export interface IBook {
   id: string,
   title: string,
-  categories: string[],
+  description: string,
   imageLinks: IImageLinks,
+  infoLink: string,
 }
 
 // {

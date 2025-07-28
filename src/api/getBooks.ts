@@ -15,11 +15,12 @@ export const getBooks = async(subject: string): Promise<IBook[]> => {
       return {
         id: item.id,
         title: info.title,
-        categories: info.categories || [],
+        description: info.description,
         imageLinks: {
           smallThumbnail: info.imageLinks?.smallThumbnail || '',
-          thumbnail: info.imageLinks?.thumbnail || ''
-        }
+          thumbnail: info.imageLinks?.thumbnail || '',
+        },
+        infoLink: info.infoLink,
       };
     });
 

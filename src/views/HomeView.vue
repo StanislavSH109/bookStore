@@ -1,6 +1,6 @@
 <template>
-  <h2 class="title">This is HomeView</h2>
   <div class="home">
+    <!-- <p>{{ booksCategories }}</p> -->
     <div v-for="(books, category) in booksCategories" :key="category">
       <h2>{{ category }}</h2>
       <BookCard v-for="book in books" :key="book.id" :book="book"/>
@@ -30,10 +30,8 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.title {
-  text-align: center;
-}
 .home {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 </style>

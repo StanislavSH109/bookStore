@@ -33,6 +33,7 @@ const shortDescription = computed(() => {
 
   &__wrapper {
     display: flex;
+    flex-direction: column;
     gap: 10px;
   }
 

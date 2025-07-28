@@ -32,6 +32,8 @@ onMounted(async () => {
 <style scoped>
 .home {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(200px, 300px);
+  justify-content: center;
+
 }
 </style>

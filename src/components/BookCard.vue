@@ -30,13 +30,15 @@ const shortDescription = computed(() => {
   display: grid;
   align-items: center;
   gap: 5px;
-  border: 1px solid black;
+  border: none;
+  outline: none;
   padding: 14px;
   background-color: #333;
   border-radius: 32px;
-  transition: transform .2s ease-in;
+  transition: transform .2s ease-in, box-shadow .3s ease-in-out;
   &:hover {
     transform: scale(1.02);
+    box-shadow: 1px 1px 10px 1px rgb(252, 252, 252);
   }
 
   &__title {

@@ -9,7 +9,7 @@
             v-for="category in categories"
             :key="category.key"
           >
-            <RouterLink class="sidebar__list-link" :to="`/category/${category.key}`">
+            <RouterLink class="sidebar__list-link" :to="`/category/category:${category.key}`">
               {{ category.label }}
             </RouterLink>
           </li>
@@ -63,8 +63,9 @@ const categories = ref([
     &-item {
       background-color: #312133;
       border-radius: 8px;
-      // padding: 8px 0 8px;
       text-align: center;
+      border: none;
+      outline: none;
     }
     &-link {
       display: flex;
@@ -74,9 +75,15 @@ const categories = ref([
       font-size: 20px;
       line-height: 24px;
       font-weight: 700;
-      color: rgb(35, 248, 255);
+      color: rgb(255, 255, 255);
       width: 100%;
       padding: 8px;
+      border: none;
+      outline: none;
+      transition: box-shadow .3s ease-in-out;
+      &:hover {
+        box-shadow: 1px 1px 5px 1px white;
+      }
     }
   }
 }

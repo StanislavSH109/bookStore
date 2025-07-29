@@ -4,9 +4,9 @@ const router = createRouter({
   history: createWebHistory('/'),
   routes: [
     {
+      name: 'all',
       path: '/',
-      redirect: '/category/all',
-      // component: () => import('@/views/HomeView.vue'),
+      component: () => import('@/views/CategoryView.vue'),
     },
     {
       name: 'category',

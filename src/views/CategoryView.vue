@@ -21,27 +21,21 @@ const currentCategoryIndex = ref(0);
 
 const route = useRoute();
 const currentCategory = computed(() => route.params.categoryname as string)
-console.log(currentCategory.value);
-console.log(currentCategory);
 
-watch(currentCategory, async() => {
-  books.value = [];
-  currentCategoryIndex.value = 0;
-  if(currentCategory.value === 'all') {
-    await loadMore();
-    await loadMore();
-  } else {
-    await loadMore();
-  }
-})
-const loadCategoryCount = ref(0);
 const books = ref<IBook[]>([]);
-
 const isLoading = ref(false);
 const observerTarget = ref<HTMLElement | null>(null);
 
+const hasMoreToLoad = computed(() => {
+  if (currentCategory.value === 'all') {
+    return currentCategoryIndex.value < allCategories.length;
+  }
+  return books.value.length === 0;
+});
+
 const loadMore = async () => {
-  if (isLoading.value) return
+  if (isLoading.value || !hasMoreToLoad.value) return;
+
   isLoading.value = true;
 
   let newBooks: IBook[] = [];
@@ -61,31 +55,32 @@ const loadMore = async () => {
 let observer: IntersectionObserver;
 
 onMounted(async () => {
-  if (currentCategory.value === 'all') {
-    await loadMore();
-  }
+  books.value = [];
+  currentCategoryIndex.value = 0;
+  await loadMore();
 
   observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
       await loadMore();
-      await loadMore();
     }
-  })
+  }, { threshold: 0.5 });
 
-  console.log(observer);
   if (observerTarget.value) {
     observer.observe(observerTarget.value);
-    }
-  })
+  }
+});
 
 onBeforeUnmount(() => {
-    if (observer && observerTarget.value) {
-      observer.unobserve(observerTarget.value);
-    }
-  })
+  if (observer && observerTarget.value) {
+    observer.unobserve(observerTarget.value);
+  }
+});
 
-
-
+watch(currentCategory, async () => {
+  books.value = [];
+  currentCategoryIndex.value = 0;
+  await loadMore();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -103,7 +98,5 @@ onBeforeUnmount(() => {
     grid-template-columns: 1fr;
   }
 }
-.observer {
-  height: 100px;
-}
+
 </style>

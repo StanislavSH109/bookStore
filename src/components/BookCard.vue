@@ -34,6 +34,10 @@ const shortDescription = computed(() => {
   padding: 14px;
   background-color: #333;
   border-radius: 32px;
+  transition: transform .2s ease-in;
+  &:hover {
+    transform: scale(1.02);
+  }
 
   &__title {
     text-align: center;
@@ -51,6 +55,7 @@ const shortDescription = computed(() => {
     max-width: 150px;
     object-fit: contain;
     border-radius: 8px;
+    box-shadow: 1px 1px 6px 1px white;
   }
 
   &__inner {
@@ -58,14 +63,18 @@ const shortDescription = computed(() => {
     flex-direction: column;
   }
 
-  &__description {
-    display: flex;
-    color: whitesmoke;
+  &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(255, 255, 255, 0.541);
+    margin: 0 0 10px;
   }
 
-  &__text
-
   &__link {
+    color: rgb(255, 255, 255);
     cursor: pointer;
   }
 }

@@ -48,13 +48,24 @@ const categories = ref([
 .wrapper {
   display: flex;
   gap: 50px;
+
+  @media (max-width: 1300px) {
+    gap: 20px;
+  }
 }
 .sidebar {
   padding: 0 20px;
+  @media (max-width: 1260px) {
+    padding: 0;
+  }
   ul {
     display: grid;
     grid-template-columns: minmax(300px, 300px);
     gap: 20px;
+
+    @media (max-width:1024px) {
+      grid-template-columns: minmax(200px, 200px);
+    }
   }
 
   &__list {
@@ -67,6 +78,7 @@ const categories = ref([
       border: none;
       outline: none;
       border-radius: 8px;
+      max-width: 100%;
     }
     &-link {
       display: flex;
@@ -91,6 +103,11 @@ const categories = ref([
       }
       &:active {
         box-shadow: 1px 1px 8px 1px white;
+      }
+
+      @media (max-width:1024px) {
+        font-size: 14px;
+        line-height: 20px;
       }
     }
   }

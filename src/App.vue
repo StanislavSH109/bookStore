@@ -1,31 +1,45 @@
 <template>
   <div class="container">
-    <aside class="sidebar">
-      <ul>
-        <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
-        <li>Test</li>
-      </ul>
-      <RouterLink :to="{name: 'home'}"></RouterLink>
-    </aside>
-    <main>
-      <RouterView/>
-    </main>
+    <div class="wrapper">
+      <aside class="sidebar">
+        <ul class="sidebar__list">
+          <li
+            class="sidebar__list-item"
+            v-for="category in categories"
+            :key="category.key"
+          >
+            <RouterLink :to="`/category/${category.key}`">
+              {{ category.label }}
+            </RouterLink>
+          </li>
+        </ul>
+      </aside>
+      <main>
+        <RouterView/>
+      </main>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 
+const categories = ref([
+  {key: 'all', label: 'Все жанры'},
+  {key: 'fantasy', label: 'Фэнтези'},
+  {key: 'self-help', label: 'Саморазвитие'},
+  {key: 'programmin', label: 'Программирование'},
+  {key: 'science-fiction', label: 'Научная фантастика'}
+])
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  display: flex;
+}
 .sidebar {
-  position: absolute;
-  left: 0;
   border-right: 1px solid black;
-  padding: 32px 40px;
 
   ul {
     display: flex;

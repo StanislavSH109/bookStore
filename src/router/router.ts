@@ -4,15 +4,15 @@ const router = createRouter({
   history: createWebHistory('/'),
   routes: [
     {
-      name: 'home',
       path: '/',
-      component: () => import('@/views/HomeView.vue'),
+      redirect: '/category/all',
+      // component: () => import('@/views/HomeView.vue'),
     },
     {
       name: 'category',
       path: '/category/:categoryName',
       component: () => import('@/views/CategoryView.vue'),
-    }
+    },
   ]
 })
 

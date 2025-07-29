@@ -24,8 +24,7 @@ const shortDescription = computed(() => {
 
 <style lang="scss" scoped>
 .card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   align-items: center;
   gap: 5px;
   border: 1px solid black;

@@ -95,4 +95,5 @@ const categories = ref([
     }
   }
 }
+
 </style>

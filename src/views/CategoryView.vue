@@ -27,7 +27,12 @@ console.log(currentCategory);
 watch(currentCategory, async() => {
   books.value = [];
   currentCategoryIndex.value = 0;
-  await loadMore();
+  if(currentCategory.value === 'all') {
+    await loadMore();
+    await loadMore();
+  } else {
+    await loadMore();
+  }
 })
 const loadCategoryCount = ref(0);
 const books = ref<IBook[]>([]);
@@ -58,22 +63,20 @@ let observer: IntersectionObserver;
 onMounted(async () => {
   if (currentCategory.value === 'all') {
     await loadMore();
-    await loadMore();
   }
-
 
   observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
-      await loadMore()
+      await loadMore();
+      await loadMore();
     }
   })
 
+  console.log(observer);
   if (observerTarget.value) {
     observer.observe(observerTarget.value);
     }
   })
-
-
 
 onBeforeUnmount(() => {
     if (observer && observerTarget.value) {

@@ -3,6 +3,7 @@
     <h1 class="title">Book Store</h1>
     <div class="wrapper">
       <aside class="sidebar">
+        <p>Категория: {{ categories }}</p>
         <ul class="sidebar__list">
           <li
             class="sidebar__list-item"

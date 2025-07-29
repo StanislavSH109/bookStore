@@ -10,12 +10,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue';
 import BookCard from '@/components/BookCard.vue';
 import { getBooks } from '@/api/getBooks';
 import type { IBook } from '@/types/books';
+import { useRoute } from 'vue-router';
 
-const categories = ['fantasy', 'self-help', 'programming', 'science-fiction'];
+const route = useRoute();
+const currentCategory = computed(() => route.params.category as string || 'all')
+
 const loadCategoryCount = ref(0);
 const books = ref<IBook[]>([]);
 
@@ -23,11 +26,10 @@ const isLoading = ref(false);
 const observerTarget = ref<HTMLElement | null>(null);
 
 const loadMore = async () => {
-  if (isLoading.value || loadCategoryCount.value >= categories.length) return
+  if (isLoading.value || !currentCategory.value) return
   isLoading.value = true;
 
-  const nextCategory = categories[loadCategoryCount.value];
-  const newBooks = await getBooks(nextCategory);
+  const newBooks = await getBooks(currentCategory.value || 'all');
   books.value.push(...newBooks);
 
   loadCategoryCount.value++;

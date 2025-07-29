@@ -42,6 +42,7 @@ const categories = ref([
   text-align: center;
   padding: 20px 0 0;
   margin: 0 0 20px;
+  color: rgb(255, 255, 255);
 }
 .wrapper {
   display: flex;
@@ -73,7 +74,7 @@ const categories = ref([
       font-size: 20px;
       line-height: 24px;
       font-weight: 700;
-      color: rgb(239, 255, 14);
+      color: rgb(35, 248, 255);
       width: 100%;
       padding: 8px;
     }

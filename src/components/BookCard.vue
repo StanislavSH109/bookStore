@@ -78,6 +78,9 @@ const shortDescription = computed(() => {
   &__link {
     color: rgb(255, 255, 255);
     cursor: pointer;
+    &:focus {
+      outline: none;
+    }
   }
 }
 </style>

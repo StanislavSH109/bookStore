@@ -62,10 +62,10 @@ const categories = ref([
 
     &-item {
       background-color: #312133;
-      border-radius: 8px;
       text-align: center;
       border: none;
       outline: none;
+      border-radius: 8px;
     }
     &-link {
       display: flex;
@@ -81,8 +81,15 @@ const categories = ref([
       border: none;
       outline: none;
       transition: box-shadow .3s ease-in-out;
+      border-radius: 8px;
       &:hover {
-        box-shadow: 1px 1px 5px 1px white;
+        box-shadow: 1px 1px 8px 1px white;
+      }
+      &:focus {
+        box-shadow: 1px 1px 8px 1px white;
+      }
+      &:active {
+        box-shadow: 1px 1px 8px 1px white;
       }
     }
   }

@@ -18,6 +18,7 @@ import type { IBook } from '@/types/books';
 const categories = ['fantasy', 'self-help', 'programming', 'science-fiction'];
 const loadCategoryCount = ref(0);
 const books = ref<IBook[]>([]);
+
 const isLoading = ref(false);
 const observerTarget = ref<HTMLElement | null>(null);
 
@@ -49,11 +50,14 @@ onMounted(() => {
     }
   })
 
-  onBeforeUnmount(() => {
+onBeforeUnmount(() => {
     if (observer && observerTarget.value) {
       observer.unobserve(observerTarget.value);
     }
   })
+
+
+
 </script>
 
 <style lang="scss" scoped>

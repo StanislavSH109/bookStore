@@ -3,6 +3,7 @@ import type { IBook } from "@/types/books";
 export const getBooks = async(subject: string): Promise<IBook[]> => {
   try {
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${subject}`);
+    console.log(response.url);
     if (!response.ok) {
         throw new Error(`'Ошибка загрузки данных:', ${response.status}`)
       }

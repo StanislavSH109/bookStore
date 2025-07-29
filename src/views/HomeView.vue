@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <p>{{ booksCategories }}</p> -->
     <div v-for="(books, category) in booksCategories" :key="category">
-      <h2>{{ category }}</h2>
+      <h2 class="head">{{ category }}</h2>
       <BookCard v-for="book in books" :key="book.id" :book="book"/>
     </div>
   </div>
@@ -34,6 +34,11 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: minmax(200px, 300px);
   justify-content: center;
-
 }
+
+.head {
+  color: wheat;
+}
+
+
 </style>

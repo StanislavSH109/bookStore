@@ -16,9 +16,19 @@ import { getBooks } from '@/api/getBooks';
 import type { IBook } from '@/types/books';
 import { useRoute } from 'vue-router';
 
-const route = useRoute();
-const currentCategory = computed(() => route.params.category as string || 'all')
+const allCategories = ['fantasy', 'self-help', 'programming', 'science-fiction']
+const currentCategoryIndex = ref(0);
 
+const route = useRoute();
+const currentCategory = computed(() => route.params.categoryname as string)
+console.log(currentCategory.value);
+console.log(currentCategory);
+
+watch(currentCategory, async() => {
+  books.value = [];
+  currentCategoryIndex.value = 0;
+  await loadMore();
+})
 const loadCategoryCount = ref(0);
 const books = ref<IBook[]>([]);
 
@@ -26,20 +36,31 @@ const isLoading = ref(false);
 const observerTarget = ref<HTMLElement | null>(null);
 
 const loadMore = async () => {
-  if (isLoading.value || !currentCategory.value) return
+  if (isLoading.value) return
   isLoading.value = true;
 
-  const newBooks = await getBooks(currentCategory.value || 'all');
-  books.value.push(...newBooks);
+  let newBooks: IBook[] = [];
+  if (currentCategory.value === 'all') {
+    const categoryToLoad = allCategories[currentCategoryIndex.value];
+    const booksFromCategory = await getBooks(categoryToLoad);
+    newBooks.push(...booksFromCategory);
+    currentCategoryIndex.value++;
+  } else {
+    newBooks = await getBooks(currentCategory.value);
+  }
 
-  loadCategoryCount.value++;
+  books.value.push(...newBooks);
   isLoading.value = false;
 }
 
 let observer: IntersectionObserver;
 
-onMounted(() => {
-  loadMore();
+onMounted(async () => {
+  if (currentCategory.value === 'all') {
+    await loadMore();
+    await loadMore();
+  }
+
 
   observer = new IntersectionObserver(async (entries) => {
     if (entries[0].isIntersecting) {
@@ -51,6 +72,8 @@ onMounted(() => {
     observer.observe(observerTarget.value);
     }
   })
+
+
 
 onBeforeUnmount(() => {
     if (observer && observerTarget.value) {
@@ -69,6 +92,6 @@ onBeforeUnmount(() => {
   gap: 20px;
 }
 .observer {
-  height: 1px;
+  height: 100px;
 }
 </style>

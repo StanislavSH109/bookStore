@@ -3,14 +3,13 @@
     <h1 class="title">Book Store</h1>
     <div class="wrapper">
       <aside class="sidebar">
-        <p>Категория: {{ categories }}</p>
         <ul class="sidebar__list">
           <li
             class="sidebar__list-item"
             v-for="category in categories"
             :key="category.key"
           >
-            <RouterLink class="sidebar__list-link" :to="`/category/category:${category.key}`">
+            <RouterLink class="sidebar__list-link" :to="`/category/${category.key}`">
               {{ category.label }}
             </RouterLink>
           </li>
@@ -33,8 +32,9 @@ const categories = ref([
   {key: 'all', label: 'Все жанры'},
   {key: 'fantasy', label: 'Фэнтези'},
   {key: 'self-help', label: 'Саморазвитие'},
-  {key: 'programmin', label: 'Программирование'},
-  {key: 'science-fiction', label: 'Научная фантастика'}
+  {key: 'programming', label: 'Программирование'},
+  {key: 'science-fiction', label: 'Научная фантастика'},
+  {key: 'bestsellers', label: 'Лучшие продажи'}
 ])
 </script>
 
@@ -47,13 +47,13 @@ const categories = ref([
 }
 .wrapper {
   display: flex;
-  gap: 20px;
+  gap: 50px;
 }
 .sidebar {
   padding: 0 20px;
   ul {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(300px, 300px);
     gap: 20px;
   }
 

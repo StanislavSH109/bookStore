@@ -6,23 +6,26 @@
       <div class="card__inner">
         <p class="card__text"> {{ props.book.description }}</p>
         <a class="card__link" :href="props.book.infoLink" target="_blank" rel="noopener noreferrer">Подробнее</a>
-        <IconFavorites class="card__favorites"/>
+        <button class="card__favorites"
+          v-if="userStore.isLogged"
+          @click="userStore.toggleFavorite(book.id)"
+        >
+          <IconFavorites class="card__favorites-icon"/>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/stores/user';
 import type { IBook } from '@/types/books';
 import { computed } from 'vue';
 import IconFavorites from './icons/IconFavorites.vue';
 
+const userStore = useUserStore();
 const props = defineProps<{book: IBook}>();
-// const shortDescription = computed(() => {
-//   const description = props.book.description || '';
-//   const sentences = description.match(/[^.!?]+[.!?]+/g) || [];
-//   return sentences.slice(0, 1).join('. ') + (sentences.length > 2 ? '...' : '');
-// })
+
 
 </script>
 
@@ -75,7 +78,6 @@ const props = defineProps<{book: IBook}>();
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgba(255, 255, 255, 0.541);
-    margin: 0 0 10px;
   }
 
   &__link {
@@ -92,9 +94,15 @@ const props = defineProps<{book: IBook}>();
 
   &__favorites {
     display: flex;
-    width: 20px;
-    height: 20px;
+    border: none;
+    outline: none;
+    background-color: transparent;
     cursor: pointer;
+
+    &-icon {
+      width: 20px;
+      height: 20px;
+    }
   }
 }
 </style>

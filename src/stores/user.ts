@@ -1,18 +1,40 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<{id: string; name: string} | null>(null);
+  const favorites = ref<Set<string>>(new Set());
+  const isLoading = ref(false);
 
   const login = () => {
-    user.value = {id: '1', 'name': 'Гость'}
+    isLoading.value = true;
+    setTimeout(() => {
+      user.value = {id: '1', 'name': 'Гость'};
+      isLoading.value = false;
+    }, 800);
   }
 
   const logout = () => {
-    user.value = null;
+    isLoading.value = true;
+    setTimeout(() => {
+      user.value = null;
+      favorites.value.clear();
+      isLoading.value = false;
+    }, 800)
   }
 
   const isLogged = computed(() => user.value !== null);
+  const toggleFavorite = (bookId: string) => {
+    if (favorites.value.has(bookId)) {
+      favorites.value.delete(bookId);
+    } else {
+      favorites.value.add(bookId);
+    }
+  };
 
-  return { user, login, logout, isLogged };
+  const isFavorite = (bookId: string) => {
+    return favorites.value.has(bookId);
+  }
+
+  return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading };
 })

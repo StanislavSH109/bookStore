@@ -10,18 +10,19 @@
       </div>
       <div class="head__login">
         <span class="head__login-enter"
-         v-if="!userStore.isLogged"
-          @click="userStore.login()"
+         v-if="!userStore.isLogged && !userStore.isLoading"
+          @click="userStore.login"
           >
           Войти
         </span>
-        <div class="head__inner">
-          <IconCheck class="head__login-favorites"
-           v-if="userStore.isLogged"/>
+
+        <div class="head__inner" v-if="userStore.isLogged && !userStore.isLoading">
+          <IconCheck class="head__login-favorites"/>
           <IconShutdown class="head__login-exit"
-           v-if="userStore.isLogged"
            @click="userStore.logout"/>
+
         </div>
+        <IconLoaded class="head__login-loader" v-else />
       </div>
     </div>
     <div class="wrapper">
@@ -49,16 +50,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { RouterView } from 'vue-router';
 import IconBookStore from './components/icons/IconBookStore.vue';
 import CategoryIcon from './components/CategoryIcon.vue';
 import { useUserStore } from './stores/user';
 import IconShutdown from './components/icons/IconShutdown.vue';
 import IconCheck from './components/icons/IconCheck.vue';
+import IconLoaded from './components/icons/IconLoaded.vue';
 
 const userStore = useUserStore();
-
+// const { isLoaded, isLoading} = storeToRefs(userStore);
 const categories = ref([
   {key: 'all', label: 'Все жанры'},
   {key: 'fantasy', label: 'Фэнтези'},
@@ -67,6 +69,10 @@ const categories = ref([
   {key: 'science-fiction', label: 'Научная фантастика'},
   {key: 'bestsellers', label: 'Лучшие продажи'}
 ])
+
+watch(() => userStore.isLoading, (val) => {
+  console.log(val);
+})
 </script>
 
 <style lang="scss" scoped>
@@ -119,6 +125,11 @@ const categories = ref([
       &:hover {
         text-shadow: 0 0 5px white;
       }
+    }
+
+    &-loader {
+      display: flex;
+      position: absolute;
     }
 
     &-favorites {

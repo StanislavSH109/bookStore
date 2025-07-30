@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <h1 class="title">Book Store</h1>
+    <div class="head">
+      <RouterLink class="head__link" :to="{name: 'all'}">
+        <IconBookStore />
+        <h1 class="title">Book Store</h1>
+      </RouterLink>
+    </div>
     <div class="wrapper">
       <aside class="sidebar">
         <ul class="sidebar__list">
@@ -10,7 +15,9 @@
             :key="category.key"
           >
             <RouterLink class="sidebar__list-link" :to="`/category/${category.key}`">
+              <CategoryIcon :categoryKey="category.key"/>
               {{ category.label }}
+
             </RouterLink>
           </li>
         </ul>
@@ -27,6 +34,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { RouterView } from 'vue-router';
+import IconBookStore from './components/icons/IconBookStore.vue';
+import CategoryIcon from './components/CategoryIcon.vue';
 
 const categories = ref([
   {key: 'all', label: 'Все жанры'},
@@ -39,11 +48,26 @@ const categories = ref([
 </script>
 
 <style lang="scss" scoped>
+.head {
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  gap: 20px;
+  margin: 0 0 20px;
+
+  &__link {
+    display: flex;
+    gap: 20px;
+    text-decoration: none;
+  }
+}
+
 .title {
   text-align: center;
   padding: 20px 0 0;
   margin: 0 0 20px;
   color: rgb(255, 255, 255);
+  max-width: 50px;
 }
 .wrapper {
   display: flex;
@@ -81,9 +105,9 @@ const categories = ref([
       max-width: 100%;
     }
     &-link {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2, auto);
       align-items: center;
-      justify-content: center;
       text-decoration: none;
       font-size: 20px;
       line-height: 24px;

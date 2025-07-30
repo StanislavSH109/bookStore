@@ -5,7 +5,7 @@
       :key="book.id" :book="book"
     />
     <div class="observer" ref="observerTarget"></div>
-    <p v-if="isLoading">Загрузка...</p>
+    <IconLoader v-if="isLoading" />
   </div>
 </template>
 
@@ -15,6 +15,7 @@ import BookCard from '@/components/BookCard.vue';
 import { getBooks } from '@/api/getBooks';
 import type { IBook } from '@/types/books';
 import { useRoute } from 'vue-router';
+import IconLoader from '@/components/icons/IconLoader.vue';
 
 const allCategories = ['fantasy', 'self-help', 'programming', 'science-fiction']
 const currentCategoryIndex = ref(0);

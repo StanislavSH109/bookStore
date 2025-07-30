@@ -15,7 +15,7 @@
             :key="category.key"
           >
             <RouterLink class="sidebar__list-link" :to="`/category/${category.key}`">
-              <CategoryIcon :categoryKey="category.key"/>
+              <CategoryIcon class="sidebar__list-icon" :categoryKey="category.key"/>
               {{ category.label }}
 
             </RouterLink>
@@ -95,6 +95,13 @@ const categories = ref([
   &__list {
     margin: 0;
     padding: 0;
+
+    &-icon {
+      @media (max-width: 1024px) {
+        width: 30px;
+        height: 30px;
+      }
+    }
 
     &-item {
       background-color: #312133;

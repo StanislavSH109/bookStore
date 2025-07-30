@@ -5,6 +5,20 @@
         <IconBookStore />
         <h1 class="title">Book Store</h1>
       </RouterLink>
+      <div class="head__search">
+        <input class="head__search-input" type="search" placeholder="Найти книгу...">
+      </div>
+      <div class="head__login">
+        <span class="head__login-enter"
+         v-if="!userStore.isLogged"
+          @click="userStore.login()"
+          >
+          Войти
+        </span>
+        <IconShutdown class="head__login-exit"
+         v-if="userStore.isLogged"
+         @click="userStore.logout"/>
+      </div>
     </div>
     <div class="wrapper">
       <aside class="sidebar">
@@ -17,7 +31,6 @@
             <RouterLink class="sidebar__list-link" :to="`/category/${category.key}`">
               <CategoryIcon class="sidebar__list-icon" :categoryKey="category.key"/>
               {{ category.label }}
-
             </RouterLink>
           </li>
         </ul>
@@ -36,6 +49,10 @@ import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 import IconBookStore from './components/icons/IconBookStore.vue';
 import CategoryIcon from './components/CategoryIcon.vue';
+import { useUserStore } from './stores/user';
+import IconShutdown from './components/icons/IconShutdown.vue';
+
+const userStore = useUserStore();
 
 const categories = ref([
   {key: 'all', label: 'Все жанры'},
@@ -50,15 +67,60 @@ const categories = ref([
 <style lang="scss" scoped>
 .head {
   display: flex;
-  justify-content: flex-start;
-  align-items: start;
+  justify-content: space-between;
+  align-items: center;
   gap: 20px;
   margin: 0 0 20px;
+  position: relative;
+
+  &__search {
+    display: flex;
+    padding-right: 100px;
+
+    &-input {
+      outline: none;
+      border: none;
+      padding: 10px;
+      border-radius: 12px;
+    }
+  }
 
   &__link {
     display: flex;
     gap: 20px;
     text-decoration: none;
+  }
+
+  &__login {
+    display: block;
+    position: absolute;
+    top: 35%;
+    right: 0;
+    &-enter {
+      font-size: 14px;
+      display: flex;
+      height: 100%;
+      line-height: 20px;
+      color: white;
+      padding: 0 10px 0 0;
+      cursor: pointer;
+      transition: text-shadow 0.2s ease-in-out;
+      &:hover {
+        text-shadow: 0 0 5px white;
+      }
+    }
+    &-exit {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border: none;
+      outline: none;
+      transition: filter .2s ease-in-out;
+      &:hover {
+        filter: (1px 1px 5px rgb(74, 74, 235));
+
+      }
+    }
   }
 }
 

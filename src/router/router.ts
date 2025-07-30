@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       name: 'all',
-      path: '/',
+      path: '/category/all',
       component: () => import('@/views/CategoryView.vue'),
     },
     {

@@ -4,7 +4,6 @@
     <div class="card__wrapper">
       <img class="card__image" :src="props.book.imageLinks?.thumbnail" alt="photo" />
       <div class="card__inner">
-        <!-- <span class="card__description">Описание:</span> -->
         <p class="card__text"> {{ shortDescription }}</p>
         <a class="card__link" :href="props.book.infoLink" target="_blank" rel="noopener noreferrer">Подробнее</a>
       </div>

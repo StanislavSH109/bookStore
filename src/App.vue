@@ -15,9 +15,13 @@
           >
           Войти
         </span>
-        <IconShutdown class="head__login-exit"
-         v-if="userStore.isLogged"
-         @click="userStore.logout"/>
+        <div class="head__inner">
+          <IconCheck class="head__login-favorites"
+           v-if="userStore.isLogged"/>
+          <IconShutdown class="head__login-exit"
+           v-if="userStore.isLogged"
+           @click="userStore.logout"/>
+        </div>
       </div>
     </div>
     <div class="wrapper">
@@ -51,6 +55,7 @@ import IconBookStore from './components/icons/IconBookStore.vue';
 import CategoryIcon from './components/CategoryIcon.vue';
 import { useUserStore } from './stores/user';
 import IconShutdown from './components/icons/IconShutdown.vue';
+import IconCheck from './components/icons/IconCheck.vue';
 
 const userStore = useUserStore();
 
@@ -72,6 +77,12 @@ const categories = ref([
   gap: 20px;
   margin: 0 0 20px;
   position: relative;
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   &__search {
     display: flex;
@@ -109,6 +120,16 @@ const categories = ref([
         text-shadow: 0 0 5px white;
       }
     }
+
+    &-favorites {
+      display: block;
+      position: absolute;
+      top: -20%;
+      right: 120%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
     &-exit {
       cursor: pointer;
       width: 30px;
@@ -117,7 +138,7 @@ const categories = ref([
       outline: none;
       transition: filter .2s ease-in-out;
       &:hover {
-        filter: (1px 1px 5px rgb(74, 74, 235));
+        filter: drop-shadow(1px 1px 5px rgb(74, 74, 235));
 
       }
     }

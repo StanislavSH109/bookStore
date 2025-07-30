@@ -4,8 +4,9 @@
     <div class="card__wrapper">
       <img class="card__image" :src="props.book.imageLinks?.thumbnail" alt="photo" />
       <div class="card__inner">
-        <p class="card__text"> {{ shortDescription }}</p>
+        <p class="card__text"> {{ props.book.description }}</p>
         <a class="card__link" :href="props.book.infoLink" target="_blank" rel="noopener noreferrer">Подробнее</a>
+        <IconFavorites class="card__favorites"/>
       </div>
     </div>
   </div>
@@ -14,13 +15,14 @@
 <script lang="ts" setup>
 import type { IBook } from '@/types/books';
 import { computed } from 'vue';
+import IconFavorites from './icons/IconFavorites.vue';
 
 const props = defineProps<{book: IBook}>();
-const shortDescription = computed(() => {
-  const description = props.book.description || '';
-  const sentences = description.match(/[^.!?]+[.!?]+/g) || [];
-  return sentences.slice(0, 1).join('. ') + (sentences.length > 2 ? '...' : '');
-})
+// const shortDescription = computed(() => {
+//   const description = props.book.description || '';
+//   const sentences = description.match(/[^.!?]+[.!?]+/g) || [];
+//   return sentences.slice(0, 1).join('. ') + (sentences.length > 2 ? '...' : '');
+// })
 
 </script>
 
@@ -62,6 +64,8 @@ const shortDescription = computed(() => {
   &__inner {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   &__text {
@@ -77,9 +81,20 @@ const shortDescription = computed(() => {
   &__link {
     color: rgb(255, 255, 255);
     cursor: pointer;
+    transition: color .3s ease-in-out;
+    &:hover {
+      color: rgba(255, 255, 255, 0.534)
+    }
     &:focus {
       outline: none;
     }
+  }
+
+  &__favorites {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 }
 </style>

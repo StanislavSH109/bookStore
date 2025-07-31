@@ -24,9 +24,13 @@ import { computed } from 'vue';
 
 
 const userStore = useUserStore();
-for (let user in userStore) {
-  console.log(user);
-}
+
+const readingCount = computed(() => {
+  userStore.favorites.filter(book => book.status === 'reading')
+});
+const finishedCount = computed(() => {
+  userStore.favorites.filter(book => book.status === 'finished')
+});
 </script>
 
 <style lang="scss" scoped>

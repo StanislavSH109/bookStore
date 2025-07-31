@@ -28,8 +28,16 @@
         X
       </button>
       <div class="card__overlay-buttons">
-        <button class="card__overlay-btn">Читаю</button>
-        <button class="card__overlay-btn">Прочитано</button>
+        <button class="card__overlay-btn"
+        @click="() => userStore.setBookStatus(book.id, 'reading')"
+        >
+          Читаю
+        </button>
+        <button class="card__overlay-btn"
+        @click="() => userStore.setBookStatus(book.id, 'finished')"
+        >
+          Прочитано
+        </button>
       </div>
     </div>
   </div>
@@ -40,6 +48,7 @@ import { useUserStore } from '@/stores/user';
 import type { IBook } from '@/types/books';
 import { ref } from 'vue';
 import IconFavorites from './icons/IconFavorites.vue';
+import IconBookStore from './icons/IconBookStore.vue';
 
 const userStore = useUserStore();
 const isOverlayOpen = ref(false);
@@ -47,6 +56,7 @@ const isOverlayOpen = ref(false);
 const toggleOverlay = () => {
   isOverlayOpen.value = !isOverlayOpen.value;
 }
+
 
 const props = defineProps<{
   book: IBook,

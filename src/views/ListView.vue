@@ -3,9 +3,9 @@
     <h2 class="favorites-card__title">Избранное</h2>
     <div class="favorites-card__filters">
       <span class="favorites-card__filters-info">
-        Количество книг: <span>5</span></span>
-      <span class="favorites-card__filters-info">Читаю: <span>4</span></span>
-      <span class="favorites-card__filters-info">Прочитано: <span>3</span></span>
+        Количество книг: <span>{{userStore.favorites.length}}</span></span>
+      <span class="favorites-card__filters-info">Читаю: <span>{{ readingCount }}</span></span>
+      <span class="favorites-card__filters-info">Прочитано: <span>{{ finishedCount }}</span></span>
     </div>
     <BookCard class="favorites-card__books"
       v-for="book in userStore.favorites"
@@ -26,10 +26,10 @@ import { computed } from 'vue';
 const userStore = useUserStore();
 
 const readingCount = computed(() => {
-  userStore.favorites.filter(book => book.status === 'reading')
+  return userStore.favorites.filter(book => book.status === 'reading').length
 });
 const finishedCount = computed(() => {
-  userStore.favorites.filter(book => book.status === 'finished')
+  return userStore.favorites.filter(book => book.status === 'finished').length
 });
 </script>
 

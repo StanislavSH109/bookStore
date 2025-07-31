@@ -48,7 +48,7 @@ import { useUserStore } from '@/stores/user';
 import type { IBook } from '@/types/books';
 import { ref } from 'vue';
 import IconFavorites from './icons/IconFavorites.vue';
-import IconBookStore from './icons/IconBookStore.vue';
+
 
 const userStore = useUserStore();
 const isOverlayOpen = ref(false);

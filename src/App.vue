@@ -59,8 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
-import type { IBook } from './types/books';
+import { ref } from 'vue';
 import { RouterView } from 'vue-router';
 import IconBookStore from './components/icons/IconBookStore.vue';
 import CategoryIcon from './components/CategoryIcon.vue';

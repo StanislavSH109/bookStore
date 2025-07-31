@@ -8,11 +8,11 @@
       <stop offset='1' stop-color='#FBFFFD' stop-opacity='0'></stop>
     </radialGradient>
     <circle transform-origin='center' fill='none' stroke='url(#a11)' stroke-width='15' stroke-linecap='round'
-      stroke-dasharray='200 1000' stroke-dashoffset='0' cx='100' cy='100' r='40'>
+      stroke-dasharray='200 1000' stroke-dashoffset='0' cx='100' cy='100' r='50'>
       <animateTransform type='rotate' attributeName='transform' calcMode='spline' dur='2' values='360;0' keyTimes='0;1'
         keySplines='0 0 1 1' repeatCount='indefinite'></animateTransform>
     </circle>
     <circle transform-origin='center' fill='none' opacity='.2' stroke='#FBFFFD' stroke-width='15' stroke-linecap='round'
-      cx='100' cy='100' r='40'></circle>
+      cx='100' cy='100' r='50'></circle>
   </svg>
 </template>

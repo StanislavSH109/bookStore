@@ -17,16 +17,31 @@
         </button>
       </div>
     </div>
+
+    <div class="card__overlay">
+      <button class="card__overlay-close">
+        X
+      </button>
+      <div class="card__overlay-buttons">
+        <button class="card__overlay-btn">Читаю</button>
+        <button class="card__overlay-btn">Прочитано</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useUserStore } from '@/stores/user';
 import type { IBook } from '@/types/books';
-import { computed, watch } from 'vue';
+import { ref } from 'vue';
 import IconFavorites from './icons/IconFavorites.vue';
 
 const userStore = useUserStore();
+const isOverlayOpen = ref(false);
+
+const toggleOverlay = () => {
+  isOverlayOpen.value = !isOverlayOpen.value;
+}
 
 const props = defineProps<{book: IBook}>();
 
@@ -36,8 +51,10 @@ const props = defineProps<{book: IBook}>();
 <style lang="scss" scoped>
 .card {
   display: grid;
+  position: relative;
   align-items: center;
   gap: 5px;
+  overflow: hidden;
   border: none;
   outline: none;
   padding: 14px;
@@ -126,6 +143,43 @@ const props = defineProps<{book: IBook}>();
       100% {
         transform: scale(1.2);
       }
+    }
+  }
+
+  &__overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 60px;
+    align-items: flex-end;
+    padding: 10px 20px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: #757575e1;
+    width: 100%;
+    height: 100%;
+    &-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 30px 0 0;
+      gap: 5px;
+    }
+    &-close {
+      border: none;
+      outline: none;
+      background-color: unset;
+      cursor: pointer;
+      color: rgb(160, 8, 8);
+    }
+    &-btn {
+      border: none;
+      outline: none;
+      background-color: unset;
+      color: rgb(255, 255, 255);
+      cursor: pointer;
     }
 
   }

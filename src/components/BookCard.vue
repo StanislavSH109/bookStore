@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="props.isFavoriteView && toggleOverlay()">
     <h3 class="card__title"> {{ props.book.title }}</h3>
     <div class="card__wrapper">
       <img class="card__image" :src="props.book.imageLinks?.thumbnail" alt="photo" />
@@ -18,8 +18,13 @@
       </div>
     </div>
 
-    <div class="card__overlay">
-      <button class="card__overlay-close">
+    <div class="card__overlay"
+      v-if="isOverlayOpen"
+      @click.stop
+    >
+      <button class="card__overlay-close"
+        @click="toggleOverlay"
+      >
         X
       </button>
       <div class="card__overlay-buttons">
@@ -43,7 +48,9 @@ const toggleOverlay = () => {
   isOverlayOpen.value = !isOverlayOpen.value;
 }
 
-const props = defineProps<{book: IBook}>();
+const props = defineProps<{
+  book: IBook,
+  isFavoriteView?: boolean,}>();
 
 
 </script>
@@ -149,9 +156,9 @@ const props = defineProps<{book: IBook}>();
   &__overlay {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 60px;
-    align-items: flex-end;
+    align-items: center;
     padding: 10px 20px 0 0;
     position: absolute;
     top: 0;
@@ -164,7 +171,6 @@ const props = defineProps<{book: IBook}>();
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 30px 0 0;
       gap: 5px;
     }
     &-close {
@@ -173,6 +179,10 @@ const props = defineProps<{book: IBook}>();
       background-color: unset;
       cursor: pointer;
       color: rgb(160, 8, 8);
+      transition: color .2s ease-in-out;
+      &:hover {
+        color: #333;
+      }
     }
     &-btn {
       border: none;
@@ -180,6 +190,10 @@ const props = defineProps<{book: IBook}>();
       background-color: unset;
       color: rgb(255, 255, 255);
       cursor: pointer;
+      transition: text-shadow .2s ease-in-out;
+      &:hover {
+        text-shadow: 1px 1px 8px white;
+      }
     }
 
   }

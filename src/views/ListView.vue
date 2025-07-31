@@ -11,7 +11,7 @@
       v-for="book in userStore.favorites"
       :key="book.id"
       :book="book"
-      @click="openOverlay"
+      :isFavoriteView="true"
     />
   </div>
 
@@ -21,6 +21,7 @@
 import BookCard from '@/components/BookCard.vue';
 import { useUserStore } from '@/stores/user';
 import { computed } from 'vue';
+
 
 const userStore = useUserStore();
 for (let user in userStore) {

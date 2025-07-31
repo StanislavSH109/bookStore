@@ -9,4 +9,5 @@ export interface IBook {
   description: string,
   imageLinks: IImageLinks,
   infoLink: string,
+  status?: 'reading' | 'finished',
 }

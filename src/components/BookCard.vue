@@ -159,7 +159,6 @@ const props = defineProps<{
     justify-content: center;
     gap: 60px;
     align-items: center;
-    padding: 10px 20px 0 0;
     position: absolute;
     top: 0;
     left: 0;

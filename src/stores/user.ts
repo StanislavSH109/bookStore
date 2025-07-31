@@ -40,5 +40,12 @@ export const useUserStore = defineStore('user', () => {
     return favorites.value.some(book => book.id === bookId);
   }
 
-  return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading, favorites };
+  const setBookStatus = (bookId: string, status: 'reading' | 'finished') => {
+    const book = favorites.value.find(b => b.id === bookId);
+    if (book) {
+      book.status = status;
+    }
+  }
+
+  return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading, favorites, setBookStatus };
 })

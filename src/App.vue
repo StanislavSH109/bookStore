@@ -17,10 +17,19 @@
         </span>
 
         <div class="head__inner" v-if="userStore.isLogged && !userStore.isLoading">
-          <IconCheck class="head__login-favorites"/>
-          <span class="head__login-favorites-count head__login-favorites-count--active"></span>
-          <IconShutdown class="head__login-exit"
-           @click="userStore.logout"/>
+          <RouterLink :to="{name: 'list'}">
+            <IconCheck class="head__login-favorites"/>
+            <span
+              class="head__login-favorites-count"
+              :class="{'head__login-favorites-count--active' : userStore.isFavorite}"
+            >
+              {{ userStore.favorites.size }}
+            </span>
+          </RouterLink>
+          <RouterLink :to="{name: 'all'}">
+            <IconShutdown class="head__login-exit"
+             @click="userStore.logout"/>
+          </RouterLink>
         </div>
         <!-- <IconLoaded class="head__login-loader" /> -->
       </div>
@@ -51,13 +60,14 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
+import type { IBook } from './types/books';
 import { RouterView } from 'vue-router';
 import IconBookStore from './components/icons/IconBookStore.vue';
 import CategoryIcon from './components/CategoryIcon.vue';
 import { useUserStore } from './stores/user';
 import IconShutdown from './components/icons/IconShutdown.vue';
 import IconCheck from './components/icons/IconCheck.vue';
-import IconLoaded from './components/icons/IconLoaded.vue';
+
 
 const userStore = useUserStore();
 const categories = ref([
@@ -69,9 +79,7 @@ const categories = ref([
   {key: 'bestsellers', label: 'Лучшие продажи'}
 ])
 
-watch(() => userStore.isLoading, (val) => {
-  console.log(val);
-})
+
 </script>
 
 <style lang="scss" scoped>
@@ -146,7 +154,7 @@ watch(() => userStore.isLoading, (val) => {
         text-align: center;
         left: -75%;
         top: -50%;
-        background-color: orange;
+        background-color: rgb(190, 125, 3);
         padding: 4px;
         min-height: 20px;
         min-width: 20px;
@@ -172,7 +180,12 @@ watch(() => userStore.isLoading, (val) => {
     }
   }
 }
-
+.books {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .title {
   text-align: center;
   padding: 20px 0 0;

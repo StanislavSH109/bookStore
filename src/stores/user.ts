@@ -6,10 +6,6 @@ export const useUserStore = defineStore('user', () => {
   const favorites = ref<Set<string>>(new Set());
   const isLoading = ref(false);
 
-  watch(() => favorites.value, (value) => {
-    console.log(value);
-  }, { deep: true })
-
   const login = () => {
     isLoading.value = true;
     setTimeout(() => {
@@ -40,5 +36,5 @@ export const useUserStore = defineStore('user', () => {
     return favorites.value.has(bookId);
   }
 
-  return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading };
+  return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading, favorites };
 })

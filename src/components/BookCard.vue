@@ -23,10 +23,11 @@
 <script lang="ts" setup>
 import { useUserStore } from '@/stores/user';
 import type { IBook } from '@/types/books';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import IconFavorites from './icons/IconFavorites.vue';
 
 const userStore = useUserStore();
+
 const props = defineProps<{book: IBook}>();
 
 
@@ -114,7 +115,7 @@ const props = defineProps<{book: IBook}>();
       transform: scale(1.05);
       }
     }
-    
+
     @keyframes pulse {
       0% {
         transform: scale(1);

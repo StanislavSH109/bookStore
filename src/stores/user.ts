@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia';
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, reactive } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<{id: string; name: string} | null>(null);
   const favorites = ref<Set<string>>(new Set());
   const isLoading = ref(false);
+
+  watch(() => favorites.value, (value) => {
+    console.log(value);
+  }, { deep: true })
 
   const login = () => {
     isLoading.value = true;

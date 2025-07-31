@@ -18,11 +18,11 @@
 
         <div class="head__inner" v-if="userStore.isLogged && !userStore.isLoading">
           <IconCheck class="head__login-favorites"/>
+          <span class="head__login-favorites-count head__login-favorites-count--active"></span>
           <IconShutdown class="head__login-exit"
            @click="userStore.logout"/>
-
         </div>
-        <IconLoaded class="head__login-loader" />
+        <!-- <IconLoaded class="head__login-loader" /> -->
       </div>
     </div>
     <div class="wrapper">
@@ -60,7 +60,6 @@ import IconCheck from './components/icons/IconCheck.vue';
 import IconLoaded from './components/icons/IconLoaded.vue';
 
 const userStore = useUserStore();
-// const { isLoaded, isLoading} = storeToRefs(userStore);
 const categories = ref([
   {key: 'all', label: 'Все жанры'},
   {key: 'fantasy', label: 'Фэнтези'},
@@ -140,6 +139,24 @@ watch(() => userStore.isLoading, (val) => {
       width: 40px;
       height: 40px;
       cursor: pointer;
+      &-count {
+        display: none;
+        position: absolute;
+        color: white;
+        text-align: center;
+        left: -75%;
+        top: -50%;
+        background-color: orange;
+        padding: 4px;
+        min-height: 20px;
+        min-width: 20px;
+        font-size: 12px;
+        line-height: 14px;
+        border-radius: 50%;
+        &--active {
+          display: block;
+        }
+      }
     }
     &-exit {
       cursor: pointer;

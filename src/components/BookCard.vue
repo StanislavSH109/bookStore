@@ -10,7 +10,10 @@
           v-if="userStore.isLogged"
           @click="userStore.toggleFavorite(book.id)"
         >
-          <IconFavorites class="card__favorites-icon"/>
+          <IconFavorites
+             class="card__favorites-icon"
+            :class="{'card__favorites-icon--active' : userStore.isFavorite(book.id)}"
+          />
         </button>
       </div>
     </div>
@@ -102,7 +105,14 @@ const props = defineProps<{book: IBook}>();
     &-icon {
       width: 20px;
       height: 20px;
+      transition: .2s ease-in-out;
+      fill: white;
+
+      &--active {
+      fill: red;
     }
+    }
+
   }
 }
 </style>

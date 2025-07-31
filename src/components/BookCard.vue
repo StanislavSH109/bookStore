@@ -110,7 +110,21 @@ const props = defineProps<{book: IBook}>();
 
       &--active {
       fill: red;
+      animation: pulse 0.3s ease;
+      transform: scale(1.05);
+      }
     }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.4);
+      }
+      100% {
+        transform: scale(1.2);
+      }
     }
 
   }

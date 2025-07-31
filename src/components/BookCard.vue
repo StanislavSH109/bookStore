@@ -8,7 +8,7 @@
         <a class="card__link" :href="props.book.infoLink" target="_blank" rel="noopener noreferrer">Подробнее</a>
         <button class="card__favorites"
           v-if="userStore.isLogged"
-          @click="userStore.toggleFavorite(book.id)"
+          @click="userStore.toggleFavorite(book)"
         >
           <IconFavorites
              class="card__favorites-icon"

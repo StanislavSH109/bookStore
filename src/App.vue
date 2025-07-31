@@ -23,7 +23,7 @@
               class="head__login-favorites-count"
               :class="{'head__login-favorites-count--active' : userStore.isFavorite}"
             >
-              {{ userStore.favorites.size }}
+              {{ userStore.favorites.length }}
             </span>
           </RouterLink>
           <RouterLink :to="{name: 'all'}">

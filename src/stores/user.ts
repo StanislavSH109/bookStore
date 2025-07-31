@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia';
+import type { IBook } from '@/types/books';
 import { ref, computed, watch, reactive } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<{id: string; name: string} | null>(null);
-  const favorites = ref<Set<string>>(new Set());
   const isLoading = ref(false);
+
+  const favorites = ref<IBook[]>([]);
 
   const login = () => {
     isLoading.value = true;
@@ -18,22 +20,24 @@ export const useUserStore = defineStore('user', () => {
     isLoading.value = true;
     setTimeout(() => {
       user.value = null;
-      favorites.value.clear();
+      favorites.value = [];
       isLoading.value = false;
     }, 800)
   }
 
   const isLogged = computed(() => user.value !== null);
-  const toggleFavorite = (bookId: string) => {
-    if (favorites.value.has(bookId)) {
-      favorites.value.delete(bookId);
+
+  const toggleFavorite = (book: IBook) => {
+    const index = favorites.value.findIndex(fav => fav.id === book.id);
+    if (index >= 0) {
+      favorites.value.splice(index, 1);
     } else {
-      favorites.value.add(bookId);
+      favorites.value.push(book);
     }
   };
 
   const isFavorite = (bookId: string) => {
-    return favorites.value.has(bookId);
+    return favorites.value.some(book => book.id === bookId);
   }
 
   return { user, login, logout, isLogged, toggleFavorite, isFavorite, isLoading, favorites };

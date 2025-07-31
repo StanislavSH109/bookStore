@@ -17,9 +17,9 @@ import type { IBook } from '@/types/books';
 import { useRoute } from 'vue-router';
 import IconLoader from '@/components/icons/IconLoader.vue';
 
+
 const allCategories = ['fantasy', 'self-help', 'programming', 'science-fiction']
 const currentCategoryIndex = ref(0);
-
 const route = useRoute();
 const currentCategory = computed(() => route.params.categoryname as string || 'all')
 
@@ -40,7 +40,6 @@ const loadMore = async () => {
   if (currentCategory.value === 'all' && currentCategoryIndex.value >= allCategories.length) {
     return
   }
-
   isLoading.value = true;
 
   let newBooks: IBook[] = [];

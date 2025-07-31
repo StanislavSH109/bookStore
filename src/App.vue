@@ -22,7 +22,7 @@
            @click="userStore.logout"/>
 
         </div>
-        <IconLoaded class="head__login-loader" v-else />
+        <IconLoaded class="head__login-loader" />
       </div>
     </div>
     <div class="wrapper">
@@ -172,10 +172,6 @@ watch(() => userStore.isLoading, (val) => {
   }
 }
 .sidebar {
-  padding: 0 20px;
-  @media (max-width: 1260px) {
-    padding: 0;
-  }
   ul {
     display: grid;
     grid-template-columns: minmax(300px, 300px);

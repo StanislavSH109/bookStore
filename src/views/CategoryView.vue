@@ -1,7 +1,7 @@
 <template>
   <div class="cards">
     <BookCard
-      v-for="book in books"
+      v-for="book in filteredBooks"
       :key="book.id" :book="book"
     />
     <div class="observer" ref="observerTarget"></div>
@@ -16,12 +16,14 @@ import { getBooks } from '@/api/getBooks';
 import type { IBook } from '@/types/books';
 import { useRoute } from 'vue-router';
 import IconLoader from '@/components/icons/IconLoader.vue';
+import { useSearchStore } from '@/stores/search';
 
 
 const allCategories = ['fantasy', 'self-help', 'programming', 'science-fiction']
 const currentCategoryIndex = ref(0);
 const route = useRoute();
-const currentCategory = computed(() => route.params.categoryname as string || 'all')
+const searchStore = useSearchStore();
+const currentCategory = computed(() => route.params.categoryname as string || 'all');
 
 const books = ref<IBook[]>([]);
 const isLoading = ref(false);
@@ -100,6 +102,12 @@ watch(currentCategory, async () => {
     observer.observe(observerTarget.value);
   }
 });
+
+const filteredBooks = computed(() => {
+  return books.value.filter(book => book.title
+  .toLowerCase()
+  .includes(searchStore.searchQuery.toLowerCase()))
+})
 </script>
 
 <style lang="scss" scoped>

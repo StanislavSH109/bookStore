@@ -6,36 +6,22 @@
       <div class="card__inner">
         <p class="card__text"> {{ props.book.description }}</p>
         <a class="card__link" :href="props.book.infoLink" target="_blank" rel="noopener noreferrer">Подробнее</a>
-        <button class="card__favorites"
-          v-if="userStore.isLogged"
-          @click="userStore.toggleFavorite(book)"
-        >
-          <IconFavorites
-             class="card__favorites-icon"
-            :class="{'card__favorites-icon--active' : userStore.isFavorite(book.id)}"
-          />
+        <button class="card__favorites" v-if="userStore.isLogged" @click="userStore.toggleFavorite(book)">
+          <IconFavorites class="card__favorites-icon"
+            :class="{ 'card__favorites-icon--active': userStore.isFavorite(book.id) }" />
         </button>
       </div>
     </div>
 
-    <div class="card__overlay"
-      v-if="isOverlayOpen"
-      @click.stop
-    >
-      <button class="card__overlay-close"
-        @click="toggleOverlay"
-      >
+    <div class="card__overlay" v-if="isOverlayOpen" @click.stop>
+      <button class="card__overlay-close" @click="toggleOverlay">
         X
       </button>
       <div class="card__overlay-buttons">
-        <button class="card__overlay-btn"
-        @click="() => userStore.setBookStatus(book.id, 'reading')"
-        >
+        <button class="card__overlay-btn" @click="() => userStore.setBookStatus(book.id, 'reading')">
           Читаю
         </button>
-        <button class="card__overlay-btn"
-        @click="() => userStore.setBookStatus(book.id, 'finished')"
-        >
+        <button class="card__overlay-btn" @click="() => userStore.setBookStatus(book.id, 'finished')">
           Прочитано
         </button>
       </div>
@@ -60,12 +46,13 @@ const toggleOverlay = () => {
 
 const props = defineProps<{
   book: IBook,
-  isFavoriteView?: boolean,}>();
+  isFavoriteView?: boolean,
+}>();
 
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card {
   display: grid;
   position: relative;
@@ -78,6 +65,7 @@ const props = defineProps<{
   background-color: #333;
   border-radius: 32px;
   transition: transform .2s ease-in, box-shadow .3s ease-in-out;
+
   &:hover {
     transform: scale(1.02);
     box-shadow: 1px 1px 10px 1px rgb(252, 252, 252);
@@ -87,6 +75,14 @@ const props = defineProps<{
     text-align: center;
     color: rgba(247, 247, 247, 0.87);
     margin: 0 0 8px;
+
+
+    @media (max-width:500px) {
+      font-size: 13px;
+      line-height: 16px;
+    }
+
+
   }
 
   &__wrapper {
@@ -100,6 +96,16 @@ const props = defineProps<{
     object-fit: contain;
     border-radius: 8px;
     box-shadow: 1px 1px 6px 1px white;
+
+    @media (max-width:500px) {
+      max-height: 100px;
+      max-width: 100px;
+    }
+
+    @media (max-width:400px) {
+      max-height: 80px;
+      max-width: 80px;
+    }
   }
 
   &__inner {
@@ -107,6 +113,7 @@ const props = defineProps<{
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+    width: 100%;
   }
 
   &__text {
@@ -116,15 +123,27 @@ const props = defineProps<{
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgba(255, 255, 255, 0.541);
+
+    @media (max-width:500px) {
+      font-size: 10px;
+      line-height: 12px;
+    }
   }
 
   &__link {
     color: rgb(255, 255, 255);
     cursor: pointer;
     transition: color .3s ease-in-out;
+
+    @media (max-width:500px) {
+      font-size: 10px;
+      line-height: 12px;
+    }
+
     &:hover {
       color: rgba(255, 255, 255, 0.534)
     }
+
     &:focus {
       outline: none;
     }
@@ -144,9 +163,9 @@ const props = defineProps<{
       fill: white;
 
       &--active {
-      fill: red;
-      animation: pulse 0.3s ease;
-      transform: scale(1.05);
+        fill: red;
+        animation: pulse 0.3s ease;
+        transform: scale(1.05);
       }
     }
 
@@ -154,9 +173,11 @@ const props = defineProps<{
       0% {
         transform: scale(1);
       }
+
       50% {
         transform: scale(1.4);
       }
+
       100% {
         transform: scale(1.2);
       }
@@ -176,12 +197,14 @@ const props = defineProps<{
     background-color: #757575e1;
     width: 100%;
     height: 100%;
+
     &-buttons {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 5px;
     }
+
     &-close {
       border: none;
       outline: none;
@@ -189,10 +212,12 @@ const props = defineProps<{
       cursor: pointer;
       color: rgb(160, 8, 8);
       transition: color .2s ease-in-out;
+
       &:hover {
         color: #333;
       }
     }
+
     &-btn {
       border: none;
       outline: none;
@@ -200,6 +225,7 @@ const props = defineProps<{
       color: rgb(255, 255, 255);
       cursor: pointer;
       transition: text-shadow .2s ease-in-out;
+
       &:hover {
         text-shadow: 1px 1px 8px white;
       }
